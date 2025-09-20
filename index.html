@@ -1,1 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cuestionario de Investigación Cuantitativa - UrbanStyle S.A.S.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Estilos básicos y responsivos */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background: #f8f9fa;
+      color: #333;
+      line-height: 1.5;
+    }
+    header {
+      background: #222;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+    main {
+      max-width: 800px;
+      margin: auto;
+      padding: 1rem;
+    }
+    h2 {
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.25rem;
+      margin-top: 1.5rem;
+    }
+    .question {
+      margin: 1rem 0;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    input[type="number"], select, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.25rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .likert, .radio-scale {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .likert label, .radio-scale label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+    button {
+      margin: 0.5rem 0.25rem;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 4px;
+      background: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:hover { background: #0056b3; }
+    #summary {
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 1rem;
+      margin-top: 1.5rem;
+    }
+    @media (max-width:600px){
+      .likert, .radio-scale { flex-direction: column; align-items: flex-start; }
+    }
+    :focus {
+      outline: 2px solid #007bff;
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Cuestionario de Investigación Cuantitativa</h1>
+  <p>Estudio de fidelización de clientes en UrbanStyle S.A.S.</p>
+</header>
+<main>
+  <form id="surveyForm" aria-label="Cuestionario de investigación">
+    <!-- Sección Datos Demográficos -->
+    <h2>Datos Demográficos</h2>
+    <div class="question">
+      <label for="genero">1. Género</label>
+      <select id="genero" required>
+        <option value="">Seleccione...</option>
+        <option value="Femenino">Femenino</option>
+        <option value="Masculino">Masculino</option>
+        <option value="No binario">No binario</option>
+        <option value="Prefiero no decir">Prefiero no decir</option>
+      </select>
+    </div>
+    <div class="question">
+      <label for="edad">2. Edad</label>
+      <input type="number" id="edad" min="15" max="80" required>
+    </div>
+    <div class="question">
+      <label for="ingresos">3. Ingresos mensuales (COP)</label>
+      <input type="number" id="ingresos" placeholder="COP" required>
+    </div>
+
+    <!-- Sección Experiencia de compra -->
+    <h2>Experiencia de compra</h2>
+    <div class="question">
+      <label>4. Satisfacción con la compra</label>
+      <div class="likert" role="radiogroup" aria-labelledby="satisfaccion-label">
+        <label><input type="radio" name="satisfaccion" value="1" required>1</label>
+        <label><input type="radio" name="satisfaccion" value="2">2</label>
+        <label><input type="radio" name="satisfaccion" value="3">3</label>
+        <label><input type="radio" name="satisfaccion" value="4">4</label>
+        <label><input type="radio" name="satisfaccion" value="5">5</label>
+      </div>
+    </div>
+    <div class="question">
+      <label for="calidad_percibida">5. Calidad percibida</label>
+      <select id="calidad_percibida" required>
+        <option value="">Seleccione...</option>
+        <option value="Baja">Baja</option>
+        <option value="Media">Media</option>
+        <option value="Alta">Alta</option>
+      </select>
+    </div>
+    <div class="question">
+      <label>6. Experiencia en el sitio web</label>
+      <div class="likert" role="radiogroup">
+        <label><input type="radio" name="experiencia_web" value="1" required>1</label>
+        <label><input type="radio" name="experiencia_web" value="2">2</label>
+        <label><input type="radio" name="experiencia_web" value="3">3</label>
+        <label><input type="radio" name="experiencia_web" value="4">4</label>
+        <label><input type="radio" name="experiencia_web" value="5">5</label>
+      </div>
+    </div>
+    <div class="question">
+      <label for="tiempo_entrega">7. Tiempo de entrega (1=lento, 10=rápido)</label>
+      <div class="radio-scale" id="tiempo_entrega">
+        <!-- Radios generados dinámicamente por JS -->
+      </div>
+    </div>
+
+    <!-- Sección Fidelización -->
+    <h2>Fidelización</h2>
+    <div class="question">
+      <label for="intencion_recompra">8. Número de compras que esperas realizar el próximo año</label>
+      <input type="number" id="intencion_recompra" min="0" required>
+    </div>
+    <div class="question">
+      <label>9. Probabilidad de recomendar UrbanStyle (0=nada probable, 10=muy probable)</label>
+      <div class="radio-scale" id="nps">
+        <!-- Radios generados dinámicamente por JS -->
+      </div>
+    </div>
+    <div class="question">
+      <label for="comentarios">10. Comentarios adicionales (opcional)</label>
+      <textarea id="comentarios" rows="3"></textarea>
+    </div>
+
+    <!-- Botones -->
+    <div>
+      <button type="button" onclick="guardar()">Guardar</button>
+      <button type="button" onclick="exportCSV()">Exportar CSV</button>
+      <button type="button" onclick="exportJSON()">Exportar JSON</button>
+      <button type="button" onclick="importJSON()">Importar JSON</button>
+      <button type="button" onclick="reiniciar()">Reiniciar</button>
+    </div>
+  </form>
+
+  <!-- Resumen -->
+  <section id="summary" aria-live="polite">
+    <h2>Resumen de respuestas</h2>
+    <pre id="summaryContent">Aún no hay respuestas guardadas.</pre>
+  </section>
+</main>
+
+<script>
+  // Generar radios para tiempo_entrega (1-10) y NPS (0-10)
+  window.addEventListener('DOMContentLoaded', () => {
+    const tiempoDiv = document.getElementById('tiempo_entrega');
+    for (let i=1; i<=10; i++) {
+      const lbl = document.createElement('label');
+      lbl.innerHTML = `<input type="radio" name="tiempo_entrega" value="${i}" required>${i}`;
+      tiempoDiv.appendChild(lbl);
+    }
+    const npsDiv = document.getElementById('nps');
+    for (let i=0; i<=10; i++) {
+      const lbl = document.createElement('label');
+      lbl.innerHTML = `<input type="radio" name="nps" value="${i}" required>${i}`;
+      npsDiv.appendChild(lbl);
+    }
+    // Intentar cargar desde localStorage
+    cargarLocal();
+  });
+
+  // Recoger datos del formulario
+  function getData(){
+    const data = {};
+    data.genero = document.getElementById('genero').value;
+    data.edad = document.getElementById('edad').value;
+    data.ingresos = document.getElementById('ingresos').value;
+    data.satisfaccion = getRadioValue('satisfaccion');
+    data.calidad_percibida = document.getElementById('calidad_percibida').value;
+    data.experiencia_web = getRadioValue('experiencia_web');
+    data.tiempo_entrega = getRadioValue('tiempo_entrega');
+    data.intencion_recompra = document.getElementById('intencion_recompra').value;
+    data.nps = getRadioValue('nps');
+    data.comentarios = document.getElementById('comentarios').value;
+    return data;
+  }
+
+  function getRadioValue(name){
+    const sel = document.querySelector(`input[name="${name}"]:checked`);
+    return sel ? sel.value : "";
+  }
+
+  // Guardar en localStorage y mostrar resumen
+  function guardar(){
+    if(!document.getElementById('surveyForm').checkValidity()){
+      alert("Por favor, complete todos los campos requeridos.");
+      return;
+    }
+    const data = getData();
+    localStorage.setItem('surveyData', JSON.stringify(data));
+    mostrarResumen(data);
+    alert("Respuestas guardadas localmente.");
+  }
+
+  function mostrarResumen(data){
+    const pre = document.getElementById('summaryContent');
+    pre.textContent = JSON.stringify(data, null, 2);
+  }
+
+  function cargarLocal(){
+    const stored = localStorage.getItem('surveyData');
+    if(stored){
+      const data = JSON.parse(stored);
+      // Rellenar campos
+      document.getElementById('genero').value = data.genero || "";
+      document.getElementById('edad').value = data.edad || "";
+      document.getElementById('ingresos').value = data.ingresos || "";
+      if(data.satisfaccion) document.querySelector(`input[name="satisfaccion"][value="${data.satisfaccion}"]`).checked = true;
+      document.getElementById('calidad_percibida').value = data.calidad_percibida || "";
+      if(data.experiencia_web) document.querySelector(`input[name="experiencia_web"][value="${data.experiencia_web}"]`).checked = true;
+      if(data.tiempo_entrega) document.querySelector(`input[name="tiempo_entrega"][value="${data.tiempo_entrega}"]`).checked = true;
+      document.getElementById('intencion_recompra').value = data.intencion_recompra || "";
+      if(data.nps !== undefined) document.querySelector(`input[name="nps"][value="${data.nps}"]`).checked = true;
+      document.getElementById('comentarios').value = data.comentarios || "";
+      mostrarResumen(data);
+    }
+  }
+
+  // Exportar CSV
+  function exportCSV(){
+    const data = getData();
+    const keys = Object.keys(data);
+    const values = keys.map(k => `"${(data[k]||"").replace(/"/g,'""')}"`);
+    const csv = keys.join(",") + "\n" + values.join(",");
+    downloadFile("respuestas.csv", csv);
+  }
+
+  // Exportar JSON
+  function exportJSON(){
+    const data = getData();
+    const jsonStr = JSON.stringify(data, null, 2);
+    downloadFile("respuestas.json", jsonStr);
+  }
+
+  // Importar JSON
+  function importJSON(){
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'application/json';
+    input.onchange = e => {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const data = JSON.parse(reader.result);
+          localStorage.setItem('surveyData', JSON.stringify(data));
+          location.reload();
+        } catch(err){
+          alert("Archivo JSON inválido.");
+        }
+      };
+      reader.readAsText(file);
+    };
+    input.click();
+  }
+
+  // Reiniciar formulario
+  function reiniciar(){
+    if(confirm("¿Seguro que deseas reiniciar y borrar todas las respuestas?")){
+      localStorage.removeItem('surveyData');
+      document.getElementById('surveyForm').reset();
+      document.getElementById('summaryContent').textContent = "Aún no hay respuestas guardadas.";
+    }
+  }
+
+  // Descargar archivo
+  function downloadFile(filename, content){
+    const blob = new Blob([content], {type:"text/plain"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+</script>
+</body>
+</html>
 
